@@ -53,7 +53,7 @@ export async function login(
       sessionCookie.attributes
     );
 
-    return redirect("/");
+    return redirect("/App");
     
   } catch (error) {
       if(isRedirectError(error)) throw error;

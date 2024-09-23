@@ -73,7 +73,7 @@ export async function signUp(
       sessionCookie.attributes
     );
 
-    return redirect("/");
+    // return redirect("/");
     
   } catch (error) {
     if(isRedirectError(error)) throw error;
