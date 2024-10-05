@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubTrigger } from "@radix-ui/react-dropdown-menu";
 import { useTheme } from "next-themes";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserButtonProps {
   className?: string;
@@ -23,6 +24,8 @@ export default function UserButton({ className }: UserButtonProps) {
   const router = useRouter();
 
   const{theme, setTheme} = useTheme();
+
+  const queryClient= useQueryClient();
 
   const handleLogout = async () => {
     await logout();
@@ -40,7 +43,7 @@ export default function UserButton({ className }: UserButtonProps) {
       <DropdownMenuContent>
         <DropdownMenuLabel>Logged in as @{user?.username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/users/${user?.username}`}>
+        <Link href={`/App/users/${user?.username}`}>
           <DropdownMenuItem>
             <UserIcon className="mr-2 size-4" />
             Profile
@@ -77,7 +80,8 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            logout();
+            queryClient.clear();
+            router.push('/login');
           }}
         >
           <LogOutIcon className="mr-2 size-4" />
