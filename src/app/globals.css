@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~stream-chat-react/dist/css/v2/index.css";
+
 @layer base {
   :root {
     --background: 224, 5%, 95%;
@@ -74,6 +76,7 @@
     @apply bg-background text-foreground;
   }
 }
+
 .str-chat {
   --str-chat__font-family: inherit;
   --str-chat__primary-color: theme(colors.primary.DEFAULT);
@@ -113,4 +116,8 @@
 
 .str-chat__channel-search-bar-button--exit-search {
   display: none;
+}
+.chat-channel {
+  height: 100%; /* or a specific height */
+  overflow-y: auto; /* Enables vertical scrolling */
 }

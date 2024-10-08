@@ -1,13 +1,10 @@
 {
-  "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/messages/unread-count/route": "app/api/messages/unread-count/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/notifications/unread-count/route": "app/api/notifications/unread-count/route.js",
+  "/api/messages/unread-count/route": "app/api/messages/unread-count/route.js",
   "/api/posts/for-you/route": "app/api/posts/for-you/route.js",
-  "/api/posts/bookmarked/route": "app/api/posts/bookmarked/route.js",
-  "/api/notifications/route": "app/api/notifications/route.js",
-  "/api/notifications/mark-as-read/route": "app/api/notifications/mark-as-read/route.js",
+  "/api/search/route": "app/api/search/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/(main)/App/page": "app/(main)/App/page.js",
-  "/(main)/App/bookmarks/page": "app/(main)/App/bookmarks/page.js",
-  "/(main)/App/notifications/page": "app/(main)/App/notifications/page.js"
+  "/(main)/App/search/page": "app/(main)/App/search/page.js"
 }

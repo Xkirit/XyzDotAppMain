@@ -5,6 +5,9 @@ const nextConfig = {
       dynamic: 30,
     },
   },
+
+ 
+
   serverExternalPackages: ["@node-rs/argon2"],
   images: {
     remotePatterns: [
@@ -15,6 +18,16 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: ()=>{
+    return [
+      {
+        source: "/hashtag/:tag",
+        destination: "/App/search?q=:tag"
+      }
+    ]
+  },
 };
+
+
 
 export default nextConfig;

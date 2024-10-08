@@ -82,7 +82,8 @@ export default function Notifications() {
       {notifications.map((notification) => (
         <Notification key={notification.id} notification={notification} />
       ))}
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && <Loader2 className="mx-auto my-3 text-center font-bold text-purple-600 justify-center animate-spin"
+        strokeWidth={2}  />}
     </InfiniteScrollContainer>
   );
 }

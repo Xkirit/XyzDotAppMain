@@ -3,6 +3,7 @@ import UserButton from "@/components/ui/UserButton";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import logo from "@/app/(main)/App/logo.png";
+import SearchField from "@/components/ui/SearchField";
 
 const Navbar = () => {
   return (
@@ -18,7 +19,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex-shrink">
-          <Input className="w-full max-w-sm" placeholder="Search" /> {/* Max-width for input */}
+          <SearchField/>
+
         </div>
         <UserButton />
       </nav>

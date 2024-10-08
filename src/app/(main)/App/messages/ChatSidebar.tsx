@@ -19,9 +19,7 @@ interface ChatSidebarProps {
 
 export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
   const { user } = useSession();
-
   const queryClient = useQueryClient();
-
   const { channel } = useChatContext();
 
   useEffect(() => {
@@ -51,24 +49,18 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
       )}
     >
       <MenuHeader onClose={onClose} />
-      <ChannelList
-        filters={{
-          type: "messaging",
-          members: { $in: [user?.id] },
-        }}
-        showChannelSearch
-        options={{ state: true, presence: true, limit: 8 }}
-        sort={{ last_message_at: -1 }}
-        additionalChannelSearchProps={{
-          searchForChannels: true,
-          searchQueryParams: {
-            channelFilters: {
-              filters: { members: { $in: [user?.id] } },
-            },
-          },
-        }}
-        Preview={ChannelPreviewCustom}
-      />
+      {user?.id && (
+        <ChannelList
+          filters={{
+            type: "messaging",
+            members: { $in: [user.id] },
+          }}
+          showChannelSearch
+          options={{ state: true, presence: true, limit: 8 }}
+          sort={{ last_message_at: -1 }}
+          Preview={ChannelPreviewCustom}
+        />
+      )}
     </div>
   );
 }

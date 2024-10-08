@@ -59,7 +59,8 @@ export default function FollowingFeed() {
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && <Loader2 className="mx-auto my-3 text-center font-bold text-purple-600 justify-center animate-spin"
+        strokeWidth={2}  />}
     <PostDeleteDialog 
     open ={false}
     onClose={()=>{}}

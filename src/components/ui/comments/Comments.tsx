@@ -44,7 +44,8 @@ export default function Comments({ post }: CommentsProps) {
           Load previous comments
         </Button>
       )}
-      {status === "pending" && <Loader2 className="mx-auto animate-spin" />}
+      {status === "pending" && <Loader2 className="mx-auto my-3 text-center font-bold text-purple-600 justify-center animate-spin"
+  strokeWidth={2}  />}
       {status === "success" && !comments.length && (
         <p className="text-center text-muted-foreground">No comments yet.</p>
       )}
