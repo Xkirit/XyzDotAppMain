@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 import SessionProvider from "./SessionProvider";
 import Navbar from "./Navbar";
 import MenuBar from "./MenuBar";
-import { ThemeProvider } from "next-themes";
-import Pixelify_Sans from "next/font/google";
+
 
 export default async function Layout({
   children,
@@ -13,22 +12,25 @@ export default async function Layout({
 }) {
   const session = await validateRequest();
 
-  
   if (!session) redirect("/login");
 
   return (
-    <ThemeProvider>
     <SessionProvider value={session}>
-      <div className="flex sticky min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col">
+        <header className="fixed top-0 w-full z-50">
         <Navbar />
-        <div className="max-w-7xl p-5 mx-auto flex w-full grow gap-5">
-          <MenuBar className="sticky top-20 h-fit hidden sm:block flex-none space-y-3 rounded-2xl bg-card px-3 py-5 lg:px-5 shadow-sm xl:w-80" />
+        </header>
+        <div className="mx-auto mt-[5.25rem] flex w-full max-w-7xl grow gap-5 p-5">
+          {/* MenuBar on the left side */}
+          <MenuBar className="sticky top-[5.25rem] hidden h-fit flex-none space-y-3 rounded-2xl bg-card px-3 py-5 shadow-sm sm:block lg:px-5 xl:w-80" />
           {children}
         </div>
-        <MenuBar className=" sticky bottom-0 p-3 gap-3 flex bg-card sm:hidden w-full justify-center flex-row align-baseline rounded-sm border-t" />
+
+        {/* MenuBar at the bottom for mobile view */}
+        <footer className="fixed bottom-0 w-full sm:hidden">
+          <MenuBar className="flex w-full justify-center gap-5 border-t bg-card p-3 sm:hidden" />
+        </footer>
       </div>
     </SessionProvider>
-  </ThemeProvider>
   );
 }
-
