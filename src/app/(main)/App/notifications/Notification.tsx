@@ -22,12 +22,12 @@ export default function Notification({ notification }: NotificationProps) {
     COMMENT: {
       message: `${notification.issuer.displayName} commented on your post`,
       icon: <MessageCircle className="size-7 fill-purple-700 text-purple-800" />,
-      href: `/posts/${notification.postId}`,
+      href: `/App/posts/${notification.postId}`,
     },
     LIKE: {
       message: `${notification.issuer.displayName} liked your post`,
       icon: <Heart className="size-7 fill-red-500 text-red-500" />,
-      href: `/posts/${notification.postId}`,
+      href: `/App/posts/${notification.postId}`,
     },
   };
 
