@@ -14,7 +14,7 @@ export default function Page() {
     <main className="flex h-screen items-center justify-center p-5">
       <div className="flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
-          <h1 className="text-center text-4xl  text-purple-700 font-mono font-extrabold">Login to Xyz</h1>
+          <h1 className="text-center text-4xl font-mono  text-purple-600 font-bold">Login to Xyz</h1>
           <div className="space-y-5">
             
             <LoginForm />

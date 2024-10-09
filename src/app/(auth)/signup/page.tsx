@@ -15,8 +15,8 @@ const page = () => {
       <div className="flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
         <div className="md:w-1/2 w-full space-y-10 overflow-y-auto p-10">
         <div className="text-center">
-        <h1 className="text-3xl font-bold text-purple-700">Sign up to xyz</h1>
-        <p className="text-muted-foreground">A place where you can find a friend</p>
+        <h1 className="text-4xl font-bold text-purple-700 font-mono">Sign up to xyz</h1>
+        
         </div>
         <div>
           <div className="space-y-5">
