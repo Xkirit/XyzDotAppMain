@@ -19,6 +19,7 @@ export default async function Home() {
   const session = await validateRequest();
 
   if (!session) redirect("/login");
+  if(!user) redirect("login");
 
  
   const posts= await prisma.post.findMany({
