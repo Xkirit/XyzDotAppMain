@@ -10,6 +10,7 @@ import ForYouFeed from "./ForYouFeed";
 import { validateRequest } from "@/auth";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import FollowingFeed from "./FollowingFeed";
+import { useSession } from "./SessionProvider";
 export default async function Home() {
   const{user} = await validateRequest();
   const userId= user?.id;
@@ -19,6 +20,8 @@ export default async function Home() {
       createdAt:"desc"
     }
   })
+  
+  
   return (
  
     <div className="flex w-full h-screen min-w-0 gap-5 ">
