@@ -11,9 +11,16 @@ import { validateRequest } from "@/auth";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import FollowingFeed from "./FollowingFeed";
 import { useSession } from "./SessionProvider";
+import { redirect } from "next/navigation";
 export default async function Home() {
   const{user} = await validateRequest();
   const userId= user?.id;
+
+  const session = await validateRequest();
+
+  if (!session) redirect("/login");
+
+ 
   const posts= await prisma.post.findMany({
     include:getPostDataInclude(userId || ''),
     orderBy:{
@@ -21,7 +28,7 @@ export default async function Home() {
     }
   })
   
-  
+
   return (
  
     <div className="flex w-full h-screen min-w-0 gap-5 ">
