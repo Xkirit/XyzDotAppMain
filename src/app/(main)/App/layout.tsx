@@ -16,14 +16,16 @@ export default async function Layout({
 
   return (
     <SessionProvider value={session}>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen h-full flex-col">
         <header className="fixed top-0 w-full z-50">
         <Navbar />
         </header>
-        <div className="mx-auto mt-[5.25rem] flex w-full max-w-7xl grow gap-5 p-5">
+        <div className="flex flex-grow w-full h-max mx-auto mt-[5.25rem] max-w-7xl gap-5 p-5">
           {/* MenuBar on the left side */}
-          <MenuBar className="sticky top-[5.25rem] hidden h-fit flex-none space-y-3 rounded-2xl bg-card px-3 py-5 shadow-sm sm:block lg:px-5 xl:w-80" />
-          {children}
+          <MenuBar className="sticky top-[5.25rem] hidden h-full flex-none space-y-3 rounded-2xl bg-card px-3 py-5 shadow-sm sm:block lg:px-5 xl:w-80" />
+          <main className="flex-grow">
+            {children}
+          </main>
         </div>
 
         {/* MenuBar at the bottom for mobile view */}

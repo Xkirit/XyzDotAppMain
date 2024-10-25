@@ -4,6 +4,11 @@
 
 @import "~stream-chat-react/dist/css/v2/index.css";
 
+html, body {
+  height: auto; /* Ensure the height is auto */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
 @layer base {
   :root {
     --background: 224, 5%, 95%;
