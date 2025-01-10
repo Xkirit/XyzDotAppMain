@@ -22,7 +22,10 @@ export default function ForYouFeed() {
       kyInstance
         .get(
           "/api/posts/for-you",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
+          {
+            searchParams: pageParam ? {  cursor: pageParam }  : {},
+            timeout: 5000
+          }
         )
         .json<PostsPage>(),
     initialPageParam: null as string | null,
