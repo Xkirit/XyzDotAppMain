@@ -12,6 +12,9 @@ import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import FollowingFeed from "./FollowingFeed";
 import { useSession } from "./SessionProvider";
 import { redirect } from "next/navigation";
+
+// Force dynamic rendering to avoid prerendering issues
+export const dynamic = 'force-dynamic';
 export default async function Home() {
   const{user} = await validateRequest();
   const userId= user?.id;

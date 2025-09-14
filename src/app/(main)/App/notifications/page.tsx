@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Notifications",
 };
 
+// Force dynamic rendering to avoid prerendering issues
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   return (
     <main className="flex w-full min-w-0 gap-5">
