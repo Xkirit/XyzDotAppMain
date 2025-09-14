@@ -1,6 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
 import { PostsPage } from "@/lib/types";
-import { useUploadThing } from "@/lib/uploadthing";
 import { UpdateUserProfileValues } from "@/lib/validation";
 import {
   InfiniteData,
@@ -18,7 +17,14 @@ export function useUpdateProfileMutation() {
 
   const queryClient = useQueryClient();
 
-  const { startUpload: startAvatarUpload } = useUploadThing("avatar");
+  // UploadThing functionality removed - avatar uploads disabled
+  const startAvatarUpload = (files: File[]) => {
+    toast({
+      variant: "destructive",
+      description: "Avatar uploads are currently disabled.",
+    });
+    return Promise.resolve([]);
+  };
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -34,7 +40,7 @@ export function useUpdateProfileMutation() {
       ]);
     },
     onSuccess: async ([updatedUser, uploadResult]) => {
-      const newAvatarUrl = uploadResult?.[0].serverData.avatarUrl;
+      const newAvatarUrl = undefined; // Avatar uploads disabled
 
       const queryFilter: QueryFilters = {
         queryKey: ["post-feed"],

@@ -13,7 +13,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Check, Loader2, SearchIcon, X } from "lucide-react";
 import { useState } from "react";
 import { UserResponse } from "stream-chat";
-import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
+import { useChatContext } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
 import { boolean } from "zod";
 import Image from "next/image";
@@ -37,7 +37,7 @@ export default function NewChatDialog({
   const searchInputDebounced = useDebounce(searchInput);
 
   const [selectedUsers, setSelectedUsers] = useState<
-    UserResponse<DefaultStreamChatGenerics>[]
+    UserResponse[]
   >([]);
 
   const { data, isFetching, isError, isSuccess } = useQuery({
@@ -45,8 +45,6 @@ export default function NewChatDialog({
     queryFn: async () => {
       try{ const response = await client.queryUsers(
         {
-          id: {$ne : loggedInUser?.id || ""} , // Exclude the logged-in user
-          role: {$ne: "admin"},
           ...(searchInputDebounced
             ? {
                 $or: [
@@ -57,10 +55,15 @@ export default function NewChatDialog({
             : {}),
         },
         { name: 1, username: 1 },
-        { limit: 1 }
+        { limit: 20 }
       );
-      console.log("this is",response)
-      return response;
+      
+      // Filter out the logged-in user and admin users
+      const filteredUsers = response.users.filter(user => 
+        user.id !== loggedInUser?.id && user.role !== "admin"
+      );
+      
+      return filteredUsers;
        // Ensure the result is returned here
       }catch(error){
         console.error("Error fetching users", error);
@@ -79,16 +82,8 @@ export default function NewChatDialog({
       const members = [loggedInUser?.id, ...selectedUsers.map((u) => u.id)].filter(Boolean); // Filters out undefined values
       
       // Ensure displayName exists before using it
-      const name =
-        selectedUsers.length > 1 && loggedInUser?.displayName
-          ? loggedInUser.displayName +
-            ", " +
-            selectedUsers.map((u) => u.name || "Unknown").join(", ") // Handles potential undefined names
-          : "default channel name";
-  
-      const channel = client.channel("messaging", {
+      const channel = client.channel("messaging", undefined, {
         members: members.filter((member): member is string => member !== undefined), // Filter out undefined values
-        name,    // Safe to use after null checks
       });
       await channel.create();
       return channel;
@@ -140,7 +135,7 @@ export default function NewChatDialog({
           <hr />
           <div className="h-96 overflow-y-auto">
             {isSuccess &&
-              data?.users.map((user) => (
+              data?.map((user) => (
                 <UserResult
                   key={user.id}
                   user={user}
@@ -155,7 +150,7 @@ export default function NewChatDialog({
                 />
               ))}
               
-            {isSuccess && !data?.users.length && (
+            {isSuccess && !data?.length && (
               <p className="my-3 text-center text-muted-foreground">
                 No users found. Try a different name.
               </p>
@@ -183,7 +178,7 @@ export default function NewChatDialog({
 }
 
 interface UserResultProps {
-  user: UserResponse<DefaultStreamChatGenerics>;
+  user: UserResponse;
   selected: boolean;
   onClick: () => void;
 }
@@ -197,7 +192,7 @@ function UserResult({ user, selected, onClick }: UserResultProps) {
       onClick={onClick}
     >
       <div className="flex items-center gap-2">
-        <UserAvatar avatarUrl={user.avatarUrl as string | null} size={40} />
+        <UserAvatar avatarUrl={user.image as string | null} size={40} />
         <div className="flex flex-col text-start">
           <p className="font-bold">{user.name}</p>
           <p className="text-muted-foreground">@{user.username}</p>
@@ -209,7 +204,7 @@ function UserResult({ user, selected, onClick }: UserResultProps) {
 }
 
 interface SelectedUserTagProps {
-  user: UserResponse<DefaultStreamChatGenerics>;
+  user: UserResponse;
   onRemove: () => void;
 }
 
@@ -219,7 +214,7 @@ function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
       onClick={onRemove}
       className="flex items-center gap-2 rounded-full border p-1 hover:bg-muted/50"
     >
-      <UserAvatar avatarUrl={user.image} size={24} />
+      <UserAvatar avatarUrl={user.image as string} size={24} />
       <p className="font-bold">{user.name}</p>
       <X className="mx-2 size-5 text-muted-foreground" />
     </button>

@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useDropzone } from "@uploadthing/react";
 import { ImageIcon, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import { ClipboardEvent, useRef } from "react";
@@ -30,11 +29,9 @@ export default function PostEditor() {
     reset: resetMediaUploads,
   } = useMediaUpload();
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: startUpload,
-  });
-
-  const { onClick, ...rootProps } = getRootProps();
+  // UploadThing functionality removed
+  const isDragActive = false;
+  const rootProps = {};
 
   const editor = useEditor({
     extensions: [
@@ -89,7 +86,6 @@ export default function PostEditor() {
             )}
             onPaste={onPaste}
           />
-          <input {...getInputProps()} />
         </div>
       </div>
       {!!attachments.length && (
